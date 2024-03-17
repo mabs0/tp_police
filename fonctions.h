@@ -1,3 +1,4 @@
+
 #include <stdio.h>
 #include <time.h>
 #include <stdio.h>
@@ -9,9 +10,9 @@
 #define MAX_NAME_LENGTH 50
 
 typedef struct {
-    char name[MAX_NAME_LENGTH];
-    int count;
-} NameCount;
+    char nom[MAX_NAME_LENGTH];
+    int compteur;
+} compteurNoms;
 
 #ifndef TP_ETUDE_DE_CAS_FONCTIONS_H
 #define TP_ETUDE_DE_CAS_FONCTIONS_H
