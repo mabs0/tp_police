@@ -49,15 +49,19 @@ int ecrire_num(char **liste, int taille) { // définie la fonction pour écrire 
 int main() {
     char **liste; // caractérise la liste
     int choix; // intialise le choix pour le menu
+    char name[MAX_NAME_LENGTH];
+    NameCount nameCounts[MAX_I]; // listee des noms et de leurs occurrences
+    int numNames = 0;
 
     printf("\nMenu :\n" // affiche le menu
            "1) Tri bulle\n"
            "2) Tri par insertion\n"
-           "3) Historigramme\n");
+           "3) Historigramme hugo\n"
+           "4) Histogramme mahe\n");
     fflush(stdin); // vide l'entrée clavier
     scanf("%d", &choix); // scane le choix
 
-    if(choix<1 || choix>3) {
+    if(choix<1 || choix>4) {
         printf("Veuillez choisir une option valable");
     }
 
@@ -77,6 +81,7 @@ int main() {
             for (int i = 0; i < MAX_I; i++) { // pour chaque ligne
                 free(liste[i]); // libère la mémoire
             }
+            break;
 
         case 2:
             start_timer(); // débute le timer
@@ -93,22 +98,21 @@ int main() {
             for (int i = 0; i < MAX_I; i++) { // pour chaque ligne
                 free(liste[i]); // libère la mémoire
             }
+            break;
+
         case 3 :
-            start_timer(); //débute le timer
+            start_timer();
 
-            lire_num(&liste); // appelle la fonction pour lire les caractères
+            histogramme();
 
-            histogramme(liste);
-
-            stop_timer(); //finit le timer et affiche le temps pris
-
+            stop_timer();
             for (int i = 0; i < MAX_I; i++) { // pour chaque ligne
                 free(liste[i]); // libère la mémoire
             }
+            break;
     }
 
     free(liste); // libère la liste
 
     return 0;
 }
-
