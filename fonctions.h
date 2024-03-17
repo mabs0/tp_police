@@ -6,10 +6,10 @@
 
 #define MAX_I 1000
 
-typedef struct comptageHistorigramme {
+typedef struct comptageHistogramme {
     char nom;
     int apparitions;
-} t_comptageHistorigramme;
+} t_comptageHistogramme;
 
 #ifndef TP_ETUDE_DE_CAS_FONCTIONS_H
 #define TP_ETUDE_DE_CAS_FONCTIONS_H
@@ -17,5 +17,5 @@ void start_timer();
 void stop_timer();
 void tri_bulle(char **liste, int taille);
 void tri_insertion(char **liste, int taille);
-void historigramme (char **liste);
+void histogramme (char **liste);
 #endif //TP_ETUDE_DE_CAS_FONCTIONS_H
