@@ -52,11 +52,12 @@ int main() {
 
     printf("\nMenu :\n" // affiche le menu
            "1) Tri bulle\n"
-           "2) Tri par insertion\n");
+           "2) Tri par insertion\n"
+           "3) Historigramme\n");
     fflush(stdin); // vide l'entrée clavier
     scanf("%d", &choix); // scane le choix
 
-    if(choix<1 || choix>2) {
+    if(choix<1 || choix>3) {
         printf("Veuillez choisir une option valable");
     }
 
@@ -88,6 +89,18 @@ int main() {
 
             printf("\n\n");
             stop_timer(); // arrête le timer
+
+            for (int i = 0; i < MAX_I; i++) { // pour chaque ligne
+                free(liste[i]); // libère la mémoire
+            }
+        case 3 :
+            start_timer(); //débute le timer
+
+            lire_num(&liste); // appelle la fonction pour lire les caractères
+
+            historigramme(liste);
+
+            stop_timer(); //finit le timer et affiche le temps pris
 
             for (int i = 0; i < MAX_I; i++) { // pour chaque ligne
                 free(liste[i]); // libère la mémoire
