@@ -1,3 +1,4 @@
+
 #include "fonctions.h"
 
 int lire_num(char ***liste) { // définie la fonction pour lire les caractères dans le fichier désordonné
@@ -49,15 +50,14 @@ int ecrire_num(char **liste, int taille) { // définie la fonction pour écrire 
 int main() {
     char **liste; // caractérise la liste
     int choix; // intialise le choix pour le menu
-    char name[MAX_NAME_LENGTH];
-    NameCount nameCounts[MAX_I]; // listee des noms et de leurs occurrences
-    int numNames = 0;
+    char nom[MAX_NAME_LENGTH];
+    compteurNoms compteurNoms[MAX_I]; // listee des noms et de leurs occurrences
+    int numNoms = 0;
 
     printf("\nMenu :\n" // affiche le menu
            "1) Tri bulle\n"
            "2) Tri par insertion\n"
-           "3) Historigramme hugo\n"
-           "4) Histogramme mahe\n");
+           "3) Histogramme\n");
     fflush(stdin); // vide l'entrée clavier
     scanf("%d", &choix); // scane le choix
 
