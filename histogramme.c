@@ -1,25 +1,26 @@
+
 #include "fonctions.h"
 
-int find_or_add(NameCount* liste, int* numNames, char* name) {
-    for (int i = 0; i < *numNames; i++) {
-            if (strcmp(liste[i].name, name) == 0) {
-                liste[i].count++;
-                return i;
+int trouver_ou_ajouter(compteurNoms* liste, int* numNoms, char* nom) {
+    for (int i = 0; i < *numNoms; i++) {
+        if (strcmp(liste[i].nom, nom) == 0) {
+            liste[i].compteur++;
+            return i;
         }
     }
     // si le nom n'a pas été trouvé, l'ajouter à la liste
-    strcpy(liste[*numNames].name, name);
-    liste[*numNames].count = 1;
-    (*numNames)++;
-    return *numNames - 1;
+    strcpy(liste[*numNoms].nom, nom);
+    liste[*numNoms].compteur = 1;
+    (*numNoms)++;
+    return *numNoms - 1;
 }
 
 
 int histogramme() {
-    char line[100]; // Taille maximale de chaque ligne
-    char name[MAX_NAME_LENGTH];
-    NameCount nameCounts[MAX_I]; // liste des noms et de leurs occurrences
-    int numNames = 0;
+    char ligne[100]; // Taille maximale de chaque ligne
+    char nom[MAX_NAME_LENGTH];
+    compteurNoms compteurNoms[MAX_I]; // liste des noms et de leurs occurrences
+    int numNoms = 0;
 
     FILE* releve_tel = fopen("releve_tel.txt", "r"); // ouvre le fichier
     if (releve_tel == NULL) { // si il y a un problème
@@ -28,19 +29,19 @@ int histogramme() {
     }
 
 
-    while (fgets(line, sizeof(line), releve_tel)) {
+    while (fgets(ligne, sizeof(ligne), releve_tel)) {
 
-        sscanf(line, "%s", name);
+        sscanf(ligne, "%s", nom);
 
-        find_or_add(nameCounts, &numNames, name);
+        trouver_ou_ajouter(compteurNoms, &numNoms, nom);
     }
 
     fclose(releve_tel);
 
     printf("Histogramme des noms :\n");
-    for (int i = 0; i < numNames; i++) {
-        printf("%s : ", nameCounts[i].name);
-        for (int j = 0; j < nameCounts[i].count; j++) {
+    for (int i = 0; i < numNoms; i++) {
+        printf("%s : ", compteurNoms[i].nom);
+        for (int j = 0; j < compteurNoms[i].compteur; j++) {
             printf("*");
         }
         printf("\n");
