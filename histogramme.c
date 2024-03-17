@@ -1,30 +1,50 @@
 #include "fonctions.h"
 
-int iteration(char nom, t_comptageHistogramme tab[MAX_I]){ //permet de vérifier si le nom apparaît déjà dans le tableau
-   int j;
-    for (j = 0; j < MAX_I; j++){ // parcoure la liste
-        if (nom == tab[j].nom) { //signale une itération
-            return j; // retourne la position s'il y a déjà une itération
+int find_or_add(NameCount* liste, int* numNames, char* name) {
+    for (int i = 0; i < *numNames; i++) {
+            if (strcmp(liste[i].name, name) == 0) {
+                liste[i].count++;
+                return i;
         }
     }
-    return 0; // retourne 0 pour signifier qu'il n'y a aucune itération
+    // si le nom n'a pas été trouvé, l'ajouter à la liste
+    strcpy(liste[*numNames].name, name);
+    liste[*numNames].count = 1;
+    (*numNames)++;
+    return *numNames - 1;
 }
 
-void histogramme (char **liste) {
-    t_comptageHistogramme tableau[MAX_I]; //initialise le tableau répertoriant le nombre d'occurences de chaque nom
-    int i, j, sommet = 0; //initialise nos variables de comptage et une variable sommet indiquant le nombre de cases remplies dans le tableau
-    for (i = 0; i < MAX_I; i++) { //parcoure la liste de 0 à 1000
-        j = iteration(*liste[i],tableau); // attribue à j la valeur retourné par la fonction iteration
-        if (j!=0) { //si  elle est différente de 0 alors on incrémente le nombre d'apparitions de ce nom
-            tableau[j].apparitions++;
-        }
-        else { //sinon on inscrit ce nom dans notre tableau et on actualise son nombre d'apparition et le nombre de cases remplies dans le tableau
-            tableau[sommet].nom = *liste[i];
-            tableau[sommet].apparitions = 1;
-            sommet++;
-        }
+
+int histogramme() {
+    char line[100]; // Taille maximale de chaque ligne
+    char name[MAX_NAME_LENGTH];
+    NameCount nameCounts[MAX_I]; // liste des noms et de leurs occurrences
+    int numNames = 0;
+
+    FILE* releve_tel = fopen("releve_tel.txt", "r"); // ouvre le fichier
+    if (releve_tel == NULL) { // si il y a un problème
+        printf("Erreur lors de l'ouverture du fichier releve_tel.\n"); // printf l'erreur
+        return 1;
     }
-    for (j = 0; j < MAX_I; j++) {
-        printf("\nNom : %s Apparitions : %d", tableau[j].nom, tableau[j].apparitions); // affiche chaque nom du tableau ainsi que son nombre d'apparitions
+
+
+    while (fgets(line, sizeof(line), releve_tel)) {
+
+        sscanf(line, "%s", name);
+
+        find_or_add(nameCounts, &numNames, name);
     }
+
+    fclose(releve_tel);
+
+    printf("Histogramme des noms :\n");
+    for (int i = 0; i < numNames; i++) {
+        printf("%s : ", nameCounts[i].name);
+        for (int j = 0; j < nameCounts[i].count; j++) {
+            printf("*");
+        }
+        printf("\n");
+    }
+
+    return 0;
 }
