@@ -98,7 +98,7 @@ int main() {
 
             lire_num(&liste); // appelle la fonction pour lire les caractères
 
-            historigramme(liste);
+            histogramme(liste);
 
             stop_timer(); //finit le timer et affiche le temps pris
 
